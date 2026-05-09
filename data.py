@@ -1,9 +1,8 @@
 import os
 import wave
-import struct
-from pathlib import Path
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader, random_split
+import torch
 
 class RawAudioDataset(Dataset):
     def __init__(self, audio_folder, label_file_path, label_map, transform=None):
@@ -35,11 +34,8 @@ class RawAudioDataset(Dataset):
 
         return audio, label
 
-import torch
-from torch.utils.data import DataLoader, random_split
 
-
-def create_audio_dataloaders(dataset, batch_size=4, train_ratio=0.7, seed=42):
+def create_dataloaders(dataset, batch_size=4, train_ratio=0.7, seed=42):
     """
     Splits raw audio dataset into train/val/test DataLoaders.
 
